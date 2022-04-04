@@ -9,6 +9,7 @@ import {
 
 import firestore, { firebase } from "@react-native-firebase/firestore"
 
+import LoginApp from './src/LoginApp';
 
 
 const App = () => {
@@ -46,21 +47,21 @@ const App = () => {
           setUsers(users)
         });
 
-        await firestore().settings({
-          persistence : false
-        })
+        // await firestore().settings({
+        //   persistence : false
+        // })
 
         return () => subscriber();
 
   }, []);
 
-  const onPressHandler = async () => {
-    let name = Math.random().toString(36).substring(7);
-    firestore().collection("users").add({
-      name,
-      age:20,
-    })
-  }
+    const onPressHandler = async () => {
+      let name = Math.random().toString(36).substring(7);
+      firestore().collection("users").add({
+        name,
+        age:20,
+      })
+    }
 
 
    const UpdateAgeUserByID = () => {
@@ -95,6 +96,9 @@ const App = () => {
   
     batch.commit();
   }
+
+
+
   
   
 
@@ -125,8 +129,10 @@ const App = () => {
 
   return (
     <View style={styles.body}>
+
+      <LoginApp />
        
-        <Button onPress={onPressHandler} title="Add User"></Button>
+        <Button onPress={onPressHandler} title="Add User" style={{marginTop:30, padding:20}}></Button>
        
        
         <Button onPress={UpdateAgeUserByID} title="Update Age"></Button>
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
   button: {
     color: 'white',
     fontSize: 20,
-    margin: 10,
+    margin: 40,
     backgroundColor:"red"
   },
 });
